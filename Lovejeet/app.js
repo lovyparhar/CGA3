@@ -57,7 +57,7 @@ animate();
 
 // ply loader
 import * as THREE from 'three';
-import { PLYLoader } from './js/examples/jsm/loaders/PLYLoader.js';
+import { PLYLoader } from 'https://unpkg.com/three@0.139.2/examples/jsm/loaders/PLYLoader.js';
 
 
 const renderer = new THREE.WebGLRenderer();
