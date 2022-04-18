@@ -1,5 +1,4 @@
 uniform vec3 u_lightPos;
-uniform vec3 u_lightTarget;
 uniform vec3 u_cameraPos;
 uniform vec4 u_diffuseColor;
 uniform float u_kDiffuse;
@@ -19,7 +18,7 @@ void main() {
     vec3 unitNormal = normalize(v_normal); 
 
     // The vector from the surface to light in world space
-    vec3 revLightWorld = normalize(u_lightPos - u_lightTarget);
+    vec3 revLightWorld = normalize(u_lightPos - v_position);
 
     // The vector from the surface to light in view space
     vec3 revLightView = (v_viewMatrix * vec4( revLightWorld, 0.0)).xyz;
