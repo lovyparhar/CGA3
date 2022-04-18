@@ -7,6 +7,9 @@ uniform float u_kAmbient;
 uniform vec4 u_specularColor;
 uniform float u_kSpecular;
 uniform float u_alpha;
+uniform float u_a;
+uniform float u_b;
+uniform float u_c;
 
 varying vec4 v_color;
 
@@ -51,8 +54,14 @@ void main() {
     // Taking care of ambient lighting
     vec3 ambientCont = vec3(u_kAmbient * u_ambientColor);
 
+
+    // Taking the attenuation due to distance of the light
+    float dis = length(u_lightPos - position);
+    float atten = 1.0/(u_a + u_b * dis + u_c * dis * dis);
+
+
     v_color = vec4 (
-        diffuseCont + ambientCont + specCont, 
+        atten * (diffuseCont + ambientCont + specCont), 
         u_diffuseColor.w
     );
 }
