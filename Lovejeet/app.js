@@ -495,11 +495,10 @@ document.addEventListener('keydown', function(event) {
 
                 toAff.forEach(
                     function(cv) {
-                        // (cv.uniforms.pointLights.value)[state.selected].u_kAmbient = 0.0;
 
-                        (cv.uniforms.pointLights.value)[state.selected].u_kDiffuse = 0.0;
+                        (cv.uniforms.pointLights.value)[state.selected].u_diffuseColor = new THREE.Vector4(0.0, 0.0, 0.0, 0.0);
 
-                        (cv.uniforms.pointLights.value)[state.selected].u_kSpecular = 0.0;
+                        (cv.uniforms.pointLights.value)[state.selected].u_specularColor = new THREE.Vector4(0.0, 0.0, 0.0, 0.0);
                     }
                 )
             }
@@ -515,11 +514,10 @@ document.addEventListener('keydown', function(event) {
 
                 toAff.forEach(
                     function(cv) {
-                        // (cv.uniforms.pointLights.value)[state.selected].u_kAmbient = state.config[state.selected].kAmbient;
 
-                        (cv.uniforms.pointLights.value)[state.selected].u_kDiffuse = state.config[state.selected].kDiffuse;
+                        (cv.uniforms.pointLights.value)[state.selected].u_diffuseColor = state.config[state.selected].diffuseColor;
     
-                        (cv.uniforms.pointLights.value)[state.selected].u_kSpecular = state.config[state.selected].kSpecular;
+                        (cv.uniforms.pointLights.value)[state.selected].u_specularColor = state.config[state.selected].specularColor;
                     }
                 )
             }
