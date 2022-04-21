@@ -597,7 +597,7 @@ document.addEventListener('keydown', function(event) {
             state.mode = TRANSFORMATION_MODE;
         }
     }
-    else if(event.code == 'ArrowUp' && state.mode == TRANSFORMATION_MODE) {
+    else if(event.code == 'KeyU' && state.mode == TRANSFORMATION_MODE) {
         if(state.selected == -1){
             alert("Please select an object first.")
         }
@@ -612,12 +612,42 @@ document.addEventListener('keydown', function(event) {
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
         }
     }
-    else if(event.code == 'ArrowDown' && state.mode == TRANSFORMATION_MODE) {
+    else if(event.code == 'KeyD' && state.mode == TRANSFORMATION_MODE) {
         if(state.selected == -1){
             alert("Please select an object first.")
         }
         else{
             state.models[state.selected].position.y -= 0.1;
+            let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
+            var szvec = new THREE.Vector3();
+            stateBox.getSize(szvec);
+            szvec.x *= 0.25;
+            szvec.y *= 0.25;
+            szvec.z *= 0.25;
+            state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+        }
+    }
+    else if(event.code == 'ArrowUp' && state.mode == TRANSFORMATION_MODE) {
+        if(state.selected == -1){
+            alert("Please select an object first.")
+        }
+        else{
+            state.models[state.selected].position.z += 0.1;
+            let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
+            var szvec = new THREE.Vector3();
+            stateBox.getSize(szvec);
+            szvec.x *= 0.25;
+            szvec.y *= 0.25;
+            szvec.z *= 0.25;
+            state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+        }
+    }
+    else if(event.code == 'ArrowDown' && state.mode == TRANSFORMATION_MODE) {
+        if(state.selected == -1){
+            alert("Please select an object first.")
+        }
+        else{
+            state.models[state.selected].position.z -= 0.1;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -657,7 +687,10 @@ document.addEventListener('keydown', function(event) {
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
         }
     }
-    // avantika
+    // avantika's to do
+    // check if light is in the bounding box. if it is, update the position of the light
+    // dont let object go outside bounding box
+    // if no object is selected, and we still drag then we get too many alerts.
     var moveObject = false;
     var prevVector = new THREE.Vector3(0, 0, 0);
     function handleMouseDown(e) {
