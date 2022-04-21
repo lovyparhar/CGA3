@@ -460,7 +460,7 @@ function getQuat(v1, v2){
     const quaternion = new THREE.Quaternion();
     // console.log("angle: ", (angle*180) / Math.PI, n.normalize());
     // console.log(n.normalize().multiplyScalar(Math.sin(angle/2)), Math.cos(angle/2));
-    quaternion.setFromAxisAngle( n.normalize(), angle/2);
+    quaternion.setFromAxisAngle( n.normalize(), angle/3);
     // quaternion.setFromAxisAngle(n, Math.sqrt(v1.lengthSq() + v2.lengthSq()) + v1.dot(v2))
 
     return quaternion
@@ -602,7 +602,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.y += 0.1;
+            state.models[state.selected].position.y += 0.01;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -617,7 +617,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.y -= 0.1;
+            state.models[state.selected].position.y -= 0.01;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -632,7 +632,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.z += 0.1;
+            state.models[state.selected].position.z += 0.01;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -647,7 +647,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.z -= 0.1;
+            state.models[state.selected].position.z -= 0.01;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -662,7 +662,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.x -= 0.1;
+            state.models[state.selected].position.x -= 0.01;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -677,7 +677,63 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.x += 0.1;
+            state.models[state.selected].position.x += 0.01;
+            let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
+            var szvec = new THREE.Vector3();
+            stateBox.getSize(szvec);
+            szvec.x *= 0.25;
+            szvec.y *= 0.25;
+            szvec.z *= 0.25;
+            state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+        }
+    }
+    else if(event.code == 'Equal' && state.mode == TRANSFORMATION_MODE) {
+        if(state.selected == -1){
+            alert("Please select an object first.")
+        }
+        else{
+            var center = new THREE.Vector3();
+            // state.boundingBoxes[state.selected].getCenter(center);
+
+            // state.models[state.selected].position.x -= center.x;
+            // state.models[state.selected].position.y -= center.y;
+            // state.models[state.selected].position.z -= center.z;
+
+
+            state.models[state.selected].scale.multiplyScalar(1.02);
+
+            // state.models[state.selected].position.x += center.x;
+            // state.models[state.selected].position.y += center.y;
+            // state.models[state.selected].position.z += center.z;
+
+            let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
+            var szvec = new THREE.Vector3();
+            stateBox.getSize(szvec);
+            szvec.x *= 0.25;
+            szvec.y *= 0.25;
+            szvec.z *= 0.25;
+            state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+        }
+    }
+    else if(event.code == 'Minus' && state.mode == TRANSFORMATION_MODE) {
+        if(state.selected == -1){
+            alert("Please select an object first.")
+        }
+        else{
+            // var center = new THREE.Vector3();
+            // state.boundingBoxes[state.selected].getCenter(center);
+
+            // state.models[state.selected].position.x -= center.x;
+            // state.models[state.selected].position.y -= center.y;
+            // state.models[state.selected].position.z -= center.z;
+
+
+            state.models[state.selected].scale.multiplyScalar(0.98);
+
+            // state.models[state.selected].position.x += center.x;
+            // state.models[state.selected].position.y += center.y;
+            // state.models[state.selected].position.z += center.z;
+
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
