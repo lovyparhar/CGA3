@@ -450,8 +450,6 @@ state.selected = 1;
 updateLightPos(state.boundingBoxes[1].max.x-0.1, state.boundingBoxes[1].max.y-0.1, state.boundingBoxes[1].max.z-0.1);
 state.selected = -1;
 
-// var quaternion = new THREE.Quaternion();
-// quaternion.setFromAxisAngle( new THREE.Vector3(0, 1, 0), Math.PI / 100 );
 
 function getVector(x, y, r){
     return new THREE.Vector3(x, y, Math.sqrt(r*r - x*x - y*y));
@@ -475,14 +473,6 @@ function getQuat(v1, v2){
     return quaternion
 }
 
-
-
-// animate();
-// if(teapotMesh){
-//     teapotMesh.quaternion.premultiply(quaternion);
-//     teapotMesh.updateMatrix();
-// }
-// renderer.render( scene, camera );
 
 
 
@@ -875,8 +865,6 @@ function onWindowResize() {
     
     renderer.setSize(width, height);
 }
-
-
 
 // When window resizes, call your function!
 // Maybe change param to false.. Not sure what you want.
