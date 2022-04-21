@@ -37,6 +37,6 @@ The application has 3 modes:
 11. -: Scale down the selected object.
 12. 0: Switch off the light corresponding to the selected object.
 13. 1: Switch on the light corresponding to the selected object.
-14. 2: Deselect mesh.
+14. 5: Deselect mesh.
 15. 3: Select teapot.
 16. 4: Select sphere.
