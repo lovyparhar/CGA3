@@ -456,19 +456,11 @@ function getVector(x, y, r){
 }
 
 function getQuat(v1, v2){
-    // const quaternion = new THREE.Quaternion();
-    // quaternion.setFromAxisAngle( new THREE.Vector3(v2[0] - v1[0], v2[1] - v1[1], v2[2] - v1[2]), Math.PI);
-
-    // return quaternion
-
     var angle = v2.angleTo(v1);
     var n = v1.cross(v2);
 
     const quaternion = new THREE.Quaternion();
-    // console.log("angle: ", (angle*180) / Math.PI, n.normalize());
-    // console.log(n.normalize().multiplyScalar(Math.sin(angle/2)), Math.cos(angle/2));
     quaternion.setFromAxisAngle( n.normalize(), angle/3);
-    // quaternion.setFromAxisAngle(n, Math.sqrt(v1.lengthSq() + v2.lengthSq()) + v1.dot(v2))
 
     return quaternion
 }
@@ -610,9 +602,6 @@ document.addEventListener('keydown', function(event) {
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
 
-            // state.config[state.selected].lightPos.x = x;
-            // state.config[state.selected].lightPos.y = y;
-            // state.config[state.selected].lightPos.z = z;
             checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
@@ -706,19 +695,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            var center = new THREE.Vector3();
-            // state.boundingBoxes[state.selected].getCenter(center);
-
-            // state.models[state.selected].position.x -= center.x;
-            // state.models[state.selected].position.y -= center.y;
-            // state.models[state.selected].position.z -= center.z;
-
-
             state.models[state.selected].scale.multiplyScalar(1.02);
-
-            // state.models[state.selected].position.x += center.x;
-            // state.models[state.selected].position.y += center.y;
-            // state.models[state.selected].position.z += center.z;
 
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
@@ -736,19 +713,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            // var center = new THREE.Vector3();
-            // state.boundingBoxes[state.selected].getCenter(center);
-
-            // state.models[state.selected].position.x -= center.x;
-            // state.models[state.selected].position.y -= center.y;
-            // state.models[state.selected].position.z -= center.z;
-
-
             state.models[state.selected].scale.multiplyScalar(0.98);
-
-            // state.models[state.selected].position.x += center.x;
-            // state.models[state.selected].position.y += center.y;
-            // state.models[state.selected].position.z += center.z;
 
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
@@ -761,10 +726,7 @@ document.addEventListener('keydown', function(event) {
             checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
-    // avantika's to do
-    // check if light is in the bounding box. if it is, update the position of the light
-    // dont let object go outside the canvas
-    // if no object is selected, and we still drag then we get too many alerts.
+    
     var moveObject = false;
     var prevVector = new THREE.Vector3(0, 0, 0);
     function handleMouseDown(e) {
@@ -772,7 +734,6 @@ document.addEventListener('keydown', function(event) {
             var mousePos = getMousePosition(e);
             prevVector = getVector(mousePos[0], mousePos[1], Math.sqrt(2));
             moveObject = true;
-            // console.log("send help");
         }
         
     }
@@ -780,7 +741,6 @@ document.addEventListener('keydown', function(event) {
     function handleMouseUp(e) {
         var mousePos = getMousePosition(e);
         moveObject = false;
-        //if your flag is true, then move the object to here and reset flag
     }
     function handleMouseMove(e) {
         // var mousePos = getMousePosition(e);
@@ -790,27 +750,13 @@ document.addEventListener('keydown', function(event) {
             // console.log()
             var current = getVector(mousePos[0], mousePos[1], Math.sqrt(2));
 
-            // if(state.selected == -1){
-            //     alert("Please select an object")
-            // }
-            // else 
             if(moveObject){
                 if(state.selected == -1){
                     alert("Please select an object first.")
                 }
                 else{
                     var center = new THREE.Vector3();
-                    // console.log(state.boundingBoxes[state.selected].isBox3);
-                    // var center = 
                     state.boundingBoxes[state.selected].getCenter(center);
-                    // console.log(state.boundingBoxes[state.selected].getCenter());
-                    // teapotMesh.rotation.x += 0.01;
-                    // teapotMesh.rotation.y += 0.01;
-                    // teapotMesh.rotation.z += 0.01;    
-                    // teapotMesh.position.x += 0.001;
-                    // console.log(mousePos);
-                    // console.log(prevVector, current);
-                    // console.log(getQuat(prevVector, current));
 
                     state.models[state.selected].position.x -= center.x;
                     state.models[state.selected].position.y -= center.y;
@@ -832,7 +778,6 @@ document.addEventListener('keydown', function(event) {
                     state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
 
                     checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
-                    // state.boundingBoxes =v
             }
             }
 
@@ -843,10 +788,6 @@ document.addEventListener('keydown', function(event) {
         //Handle if you need smooth drag experience
     }
     function getMousePosition(e) {
-       // var boundary = canvas.getBoundingClientRect();
-        // (e.clientX, e.clientY)  => Mouse coordinates wrt whole browser
-        //  (boundary.left, boundary.top) => Canvas starting coordinate
-        // console.log( e.clientX, window.innerWidth, e.clientY, window.innerHeight);
         return [( e.clientX / window.innerWidth ) * 2 - 1, -( e.clientY / window.innerHeight ) * 2 + 1];
     }
     
