@@ -868,7 +868,18 @@ document.addEventListener('keydown', function(event) {
     console.log(state.mode);
 });
 
+function onWindowResize() {
 
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+    
+    renderer.setSize(width, height);
+}
+
+
+
+// When window resizes, call your function!
+// Maybe change param to false.. Not sure what you want.
 
 
 // ----------------------------------------------------
@@ -881,4 +892,6 @@ function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );
 }
+
+window.onresize = () => onWindowResize(true);
 animate();
