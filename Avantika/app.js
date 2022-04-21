@@ -94,6 +94,7 @@ let teapotConfig = {
 let sphereConfig = {
     lightPos : new THREE.Vector3(0, 2, 2),
     diffuseColor : new THREE.Vector4(0.8,0.3,0.3,1.0),
+    // diffuseColor : new THREE.Vector4(0,1,0,1.0),
     kDiffuse : 0.3,
 
     ambientColor : new THREE.Vector4(0.8,0.3,0.3,1.0),
@@ -406,7 +407,11 @@ function updateLightPos(x, y, z) {
 }
 
 function checkLight(box, light){
-
+    if(!box.containsPoint(light)){
+        var center = new THREE.Vector3();
+        box.getCenter(center);
+        updateLightPos(center.x, center.y, center.z);
+    }
 }
 
 function moveLight(dim, offs) {
@@ -606,7 +611,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.y += 0.01;
+            state.models[state.selected].position.y += 0.01;            
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -614,6 +619,11 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            // state.config[state.selected].lightPos.x = x;
+            // state.config[state.selected].lightPos.y = y;
+            // state.config[state.selected].lightPos.z = z;
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     else if(event.code == 'KeyD' && state.mode == TRANSFORMATION_MODE) {
@@ -629,6 +639,8 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     else if(event.code == 'ArrowUp' && state.mode == TRANSFORMATION_MODE) {
@@ -644,6 +656,8 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     else if(event.code == 'ArrowDown' && state.mode == TRANSFORMATION_MODE) {
@@ -659,6 +673,8 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     else if(event.code == 'ArrowLeft' && state.mode == TRANSFORMATION_MODE) {
@@ -674,6 +690,8 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     else if(event.code == 'ArrowRight' && state.mode == TRANSFORMATION_MODE) {
@@ -689,6 +707,8 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     else if(event.code == 'Equal' && state.mode == TRANSFORMATION_MODE) {
@@ -717,6 +737,8 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     else if(event.code == 'Minus' && state.mode == TRANSFORMATION_MODE) {
@@ -745,6 +767,8 @@ document.addEventListener('keydown', function(event) {
             szvec.y *= 0.25;
             szvec.z *= 0.25;
             state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+            checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
         }
     }
     // avantika's to do
@@ -816,6 +840,8 @@ document.addEventListener('keydown', function(event) {
                     szvec.y *= 0.25;
                     szvec.z *= 0.25;
                     state.boundingBoxes[state.selected] = stateBox.expandByVector(szvec);
+
+                    checkLight(state.boundingBoxes[state.selected], state.config[state.selected].lightPos);
                     // state.boundingBoxes =v
             }
             }
