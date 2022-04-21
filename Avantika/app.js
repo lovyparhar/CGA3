@@ -405,6 +405,10 @@ function updateLightPos(x, y, z) {
     }
 }
 
+function checkLight(box, light){
+
+}
+
 function moveLight(dim, offs) {
     if(state.selected == -1) {
         alert("Please select an object first.")
@@ -632,7 +636,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.z += 0.01;
+            state.models[state.selected].position.z -= 0.01;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
@@ -647,7 +651,7 @@ document.addEventListener('keydown', function(event) {
             alert("Please select an object first.")
         }
         else{
-            state.models[state.selected].position.z -= 0.01;
+            state.models[state.selected].position.z += 0.01;
             let stateBox = new THREE.Box3().setFromObject(state.models[state.selected]);
             var szvec = new THREE.Vector3();
             stateBox.getSize(szvec);
