@@ -689,7 +689,7 @@ document.addEventListener('keydown', function(event) {
     }
     // avantika's to do
     // check if light is in the bounding box. if it is, update the position of the light
-    // dont let object go outside bounding box
+    // dont let object go outside the canvas
     // if no object is selected, and we still drag then we get too many alerts.
     var moveObject = false;
     var prevVector = new THREE.Vector3(0, 0, 0);
